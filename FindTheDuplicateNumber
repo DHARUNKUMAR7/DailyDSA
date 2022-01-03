@@ -1,0 +1,24 @@
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int n=nums.length;
+        int i=0;
+        while(i<n){
+            int count=nums[i]-1;
+            if(nums[i]!=nums[count]){
+              int temp=nums[i];
+                nums[i]=nums[count];
+                nums[count]=temp;
+            }
+            else{
+                i++;
+            }
+        }
+        for(i=0;i<n;i++){
+            if(nums[i]!=i+1){
+               return nums[i]; 
+            }
+        }
+        return 0;
+       
+    }
+}
