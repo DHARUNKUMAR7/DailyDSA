@@ -1,0 +1,25 @@
+class Solution {
+    public String interpret(String command) {
+        String[] s=new String[command.length()];
+        for(int i=0;i<command.length();i++){
+            int d=command.charAt(i);
+            s[i]=Character.toString(d);
+        }
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<command.length();i++){
+            if(s[i].equals("G")){
+                sb.append("G");
+            }
+            else if(s[i].equals("(")&&s[i+1].equals(")")){
+                sb.append("o");
+                i+=1;
+            }
+            else{
+                sb.append("al");
+                i+=3;
+            }
+        }
+        String c=sb.toString();
+        return c;
+    }
+}
