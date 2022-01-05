@@ -1,0 +1,24 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        StringBuilder sb=new StringBuilder();
+        int n=s.length()-1;
+        while(n>=0){
+            char a=s.charAt(n);
+            if((a-'a'>=0&&a-'a'<26)){
+                sb.append(a);
+            }
+            if(a-'A'>=0&&a-'A'<26){
+                sb.append((char)(a+32));
+            }
+            if(a>='0'&&a<='9'){
+                sb.append(a);
+            }
+            n--;
+        }
+        String b=sb.toString();
+        sb.reverse();
+        String c=sb.toString();
+        if(c.equals(b)) return true;
+        return false;
+    }
+}
