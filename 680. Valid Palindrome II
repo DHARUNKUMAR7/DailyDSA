@@ -1,0 +1,50 @@
+class Solution {
+    public boolean validPalindrome(String s) {
+       if((deletefromend(s)||deletefromstart(s))) return true;
+        return false;
+    }
+    public boolean deletefromend(String s){
+        int start=0,end=s.length()-1;
+            int count=0;
+            while(start<end){
+                if(s.charAt(start)==s.charAt(end)){
+                    start++;
+                    end--;
+                }
+                else{
+                    count++;
+                    if(count>1){
+                        return false;
+                        
+                    }
+                    else{
+                        end--;
+                       
+                    }
+                }
+            }
+        return true;
+    }
+    public boolean deletefromstart(String s){
+        int start=0,end=s.length()-1;
+            int count=0;
+            while(start<end){
+                if(s.charAt(start)==s.charAt(end)){
+                    start++;
+                    end--;
+                }
+                else{
+                    count++;
+                    if(count>1){
+                        return false;
+                        
+                    }
+                    else{
+                      start++;
+                       
+                    }
+                }
+            }
+        return true;
+    }
+}
