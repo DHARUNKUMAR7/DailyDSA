@@ -1,0 +1,18 @@
+class Solution {
+    public boolean checkOnesSegment(String s) {
+        boolean gotone=false,gap=false;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='1'&&gap){
+                return false;
+                
+            }
+            if(s.charAt(i)=='1'){
+                gotone=true;
+            }
+            else if(s.charAt(i)=='0'&&gotone){
+                gap=true;
+            }
+        }
+        return true;
+    }
+}
