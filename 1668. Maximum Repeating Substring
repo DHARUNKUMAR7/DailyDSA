@@ -1,0 +1,15 @@
+class Solution {
+    public int maxRepeating(String s, String word) {
+        if(!s.contains(word)){
+            return 0;
+        }
+        StringBuilder sb=new StringBuilder();
+    sb.append(word);
+    int i=0;
+        while(s.contains(sb.toString())){
+            sb.append(word);
+            i++;
+        }
+    return i;
+    }
+}
