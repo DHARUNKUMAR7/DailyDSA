@@ -1,0 +1,29 @@
+class Solution {
+    public boolean areSentencesSimilar(String sentence1, String sentence2) {
+        if(sentence2.length()>sentence1.length()) return areSentencesSimilar(sentence2,sentence1);
+        Deque<String> dq1=new ArrayDeque();
+          Deque<String> dq2=new ArrayDeque();
+        String[] s1=sentence1.split(" ");
+          String[] s2=sentence2.split(" ");
+        for(String a:s1) dq1.offer(a);
+        for(String b:s2) dq2.offer(b);
+        while(!dq2.isEmpty()){
+            if(dq1.peekFirst().equals(dq2.peekFirst())){
+                dq1.pollFirst();
+                dq2.pollFirst();
+                
+            }
+            else if(dq1.peekLast().equals(dq2.peekLast())){
+                dq1.pollLast();
+                dq2.pollLast();
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+        
+        
+        
+    }
+}
