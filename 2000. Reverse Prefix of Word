@@ -1,13 +1,9 @@
 class Solution {
     public String reversePrefix(String word, char ch) {
         int i=0,c=0;
-        while(i<word.length()){
-            if(word.charAt(i)==ch){
-                c=i;
-                break;
-            }
-            i++;
-        }
+        String s=String.valueOf(ch);
+        if(!word.contains(s)) return word;//edge condition
+        c=word.indexOf(ch);
         StringBuilder sb=new StringBuilder();
         for(i=c;i>=0;i--){
            sb.append(word.charAt(i)); 
