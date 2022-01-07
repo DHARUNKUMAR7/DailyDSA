@@ -1,0 +1,20 @@
+class Solution {
+    public boolean canReach(String s, int min, int max) {
+        Queue<Integer> ans=new LinkedList<Integer>();
+        ans.offer(0);
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='0'){
+                while(!ans.isEmpty()&&ans.peek()+max<i){
+                    ans.poll();
+                }// this while statement do in last when coding in youtube;
+                if(ans.isEmpty()) return false;//it will not be empty first because lie 4.and if its empty it shows that we cant jump from the previous index
+                int prev=ans.peek();
+                if(prev+min<=i&&prev+max>=i){
+                    ans.offer(i);
+                    if(i==s.length()-1) return true;
+                }
+            }
+        }
+        return false;
+    }
+}
