@@ -1,0 +1,37 @@
+class Solution {
+    public int numWays(String s) {
+      int count=0;
+        long n=s.length();
+        long  d=1000000007;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='1'){
+                count++;
+            }
+        }
+        if(count==0){
+            return (int)(((n-1)*(n-2)/2)%d);//this formula can't understand 
+        }
+        if(count%3!=0) return 0;
+        long gap1=0,gap2=0,countone=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='1'){
+                countone++;
+            }
+            if(countone==count/3){
+                while(i<s.length()-1&&s.charAt(i+1)=='0'){
+                    gap1++;
+                    i++;
+                }
+            }
+             if(countone==2*count/3){
+                while(i<s.length()-1&&s.charAt(i+1)=='0'){
+                    gap2++;
+                    i++;
+                }
+            }
+            
+        }
+       //1001|0|0|0|11|0|0|101 after 2 one we have a gap 0f 3 zeros so we can make 4 cuts like 1001,10010,100100,1001000 these all re having only 2 ones gap so possible combination are gap+1 where gap is no of 0's after total no of ones/3 ie first string of 1's.
+        return (int)((gap1+1)*(gap2+1)%d);
+    }
+}
