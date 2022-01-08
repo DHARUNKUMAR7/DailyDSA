@@ -1,0 +1,41 @@
+class Solution {
+    public int nextGreaterElement(int n) {
+       char[] ans=(""+n).toCharArray();
+        int i=ans.length-2;
+        while(i>=0&&ans[i]>=ans[i+1]){
+            i--;
+        }
+        if(i==-1) return -1;//edge case eg7654 seeing from last there is no dip:means 76|4|5this is dip:then this while will run for all the elements and i become -1;
+        int j=ans.length-1;
+        while(j>i&&ans[i]>=ans[j]){
+            j--;
+        }
+        swap(ans,i,j);
+        reverse(ans,i+1);
+        long c=0;
+      
+        for( i=0;i<ans.length;i++){
+            c=c*10+(ans[i]-48);
+        }
+        
+        return c>Integer.MAX_VALUE?-1:(int)c;
+        
+        
+        
+    }
+    public char[] reverse(char[] ans,int start){
+        int end=ans.length-1;
+        while(start<end){
+            swap(ans,start,end);
+            start++;
+            end--;
+        }
+        return ans;
+    }
+    public char[] swap(char[] ans,int i,int j){
+        char temp=ans[i];
+        ans[i]=ans[j];
+        ans[j]=temp;
+        return ans;
+    }
+}
