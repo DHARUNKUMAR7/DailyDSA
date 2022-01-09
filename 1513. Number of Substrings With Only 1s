@@ -1,0 +1,16 @@
+class Solution {
+    public int numSub(String s) {
+        long count=0,ones=0;
+        for(char i:s.toCharArray()){
+            if(i=='0'){
+                ones=0;
+            }
+            else{
+                count+=++ones;
+                
+            }
+        }
+        return (int)(count%1000000007);
+        
+    }
+}
