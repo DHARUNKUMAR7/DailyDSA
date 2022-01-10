@@ -1,0 +1,46 @@
+class Solution {
+    public List<Boolean> camelMatch(String[] queries, String pattern) {
+        List<Boolean> list=new ArrayList<Boolean>();
+        int n=queries.length;
+        int m=pattern.length();
+        int count=0;
+        int count1=0;
+        for(char c:pattern.toCharArray()){
+            if(c-'A'>=0&&c-'A'<26){
+                count++;
+            }
+        }
+        for(int i=0;i<n;i++){
+            int start=0,end=0;
+            while(start<queries[i].length()&&end<m){
+                char c=queries[i].charAt(start);
+                char d=pattern.charAt(end);
+                count1=fun(queries[i]);
+                if(c==d){
+                    start++;
+                    end++;
+                    
+                }
+                else{
+                    start++;
+                }
+            }
+            if(end==m&&count==count1) list.add(true);
+            else list.add(false);
+            
+            
+        }
+        return list;
+        
+    }
+    public int fun(String str){
+        int n=0;
+        for(char c:str.toCharArray()){
+            if(c-'A'>=0&&c-'A'<26){
+                n++;
+            }
+        }
+        return n;
+    }
+   
+}
