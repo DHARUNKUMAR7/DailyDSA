@@ -1,0 +1,23 @@
+class Solution {
+    public char findKthBit(int n, int k) {
+        String[] ans=new String[n];
+        ans[0]="0";
+        for(int i=1;i<n;i++){
+            ans[i]=ans[i-1]+"1"+reverse(invert(ans[i-1]));
+        }
+        return ans[n-1].charAt(k-1);
+    }
+    public String reverse(String str){
+        StringBuilder sb=new StringBuilder(str);
+        return sb.reverse().toString();
+    }
+    public String invert(String str){
+        StringBuilder sb1=new StringBuilder();
+        for(char c:str.toCharArray()){
+            if(c=='1') sb1.append("0");
+           
+            else sb1.append("1");
+        }
+        return sb1.toString();
+    }
+}
