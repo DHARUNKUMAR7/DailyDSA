@@ -1,0 +1,40 @@
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        int row=board.length;
+        int col=board[0].length;
+        boolean arr[][]= new boolean[row][col];
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                boolean a=wordfound(board,word,arr,i,j,0);
+                if(a){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean wordfound(char[][] board,String word,boolean[][] arr,int i,int j,int k){
+        if(board[i][j]!=word.charAt(k)){
+            return false;
+        }
+        else if(k==word.length()-1){
+            return true;
+        }
+        arr[i][j]=true;
+        boolean result=false;
+        int[][] dir={{0,1},{1,0},{0,-1},{-1,0}};
+        for(int[] d:dir){
+            int curX=i+d[0],curY=j+d[1];
+            if(curX>=0&&curX<board.length&&curY>=0&&curY<board[0].length&&!arr[curX][curY]){
+                boolean flag=wordfound( board, word, arr, curX, curY, k+1);
+                if(flag){
+                    result= true;
+                    break;
+                } 
+            }
+        }
+        arr[i][j]=false;
+        return result;
+        
+    }
+}
