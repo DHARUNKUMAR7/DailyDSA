@@ -1,0 +1,23 @@
+class Solution {
+    public int kthGrammar(int n, int k) {
+        if(n==1) return 0;
+        return (fun(n,k));
+    }
+    public int fun(int n,long k){
+        if(n==2){
+            if(k==2) return 1;
+            else return 0;
+        }
+        int a=fun(n-1,Math.round(((double)k)/2));
+        if(a==0){
+            if(k%2==0){
+                return 1;
+            }
+            else return 0;
+        }
+        else{
+            if(k%2==0) return 0;
+            else return 1;
+        }
+    }
+}
