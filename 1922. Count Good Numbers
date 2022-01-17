@@ -1,0 +1,26 @@
+class Solution {
+    int mod=1000000007;
+    public int countGoodNumbers(long n) {
+        long x;
+        long y;
+        long k=n/2;
+        if(n==1){
+            return 5;
+        }
+        if(n%2==0){
+            x=pow(5,k);
+        }
+        else {
+            x=pow(5,k+1);
+        }
+        y=pow(4,k);
+        return (int)(x*y%mod);
+    }
+    public long pow(long x,long y){
+        long temp;
+        if(y==0) return 1;
+        temp=pow(x,y/2);
+        if(y%2==1) return (x*temp*temp)%mod;
+        else return (temp*temp)%mod;
+    }
+}
