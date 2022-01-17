@@ -1,0 +1,21 @@
+class Solution {
+    public int minNonZeroProduct(int p) {
+        long mod=1000000007;
+        long n=(long)Math.pow(2,p)-1;
+        long max=(long)pow(n-1,(n-1)/2);
+        return (int)(((max%mod)*(n%mod))%mod);
+    }
+    public long pow(long n,long p){
+        if(p==0){
+            return 1;
+        }
+        long mod=1000000007;
+        long temp;
+        temp=pow(n,p/2);
+        temp=temp%mod;
+        if(p%2==0){
+            return ((temp*temp)%mod);
+        }
+        else return ((((temp*temp)%mod) *(n%mod)%mod));
+    }
+}
