@@ -1,0 +1,32 @@
+class Solution {
+    int i=0;
+    public String decodeString(String s) {
+        String result;
+        StringBuilder ans=new StringBuilder();
+        int count=0;
+        while(i<s.length()){
+            char a=s.charAt(i);
+            if(Character.isDigit(a)){
+                int ind=i;
+                while(s.charAt(i)>='0'&&s.charAt(i)<='9'){
+                    i++;
+                }
+                count=Integer.parseInt(s.substring(ind,i));
+            }
+            else if(a=='['){
+                i++;
+                result=decodeString(s);
+                ans.append(result.repeat(count));
+            }
+            else if(a>='a'&&a<='z'){
+                ans.append(a);
+                i++;
+            }
+            else{
+                i++;
+                return ans.toString();
+            }
+        }
+        return ans.toString();
+    }
+}
