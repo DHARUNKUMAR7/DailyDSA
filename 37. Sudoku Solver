@@ -1,0 +1,34 @@
+class Solution {
+    public void solveSudoku(char[][] board) {
+         solve(board,0,0);
+    }
+    public boolean solve(char[][] board,int row,int col){
+        if(row==board.length) return true;
+        if(col==board.length) return solve(board,row+1,0);
+        if(board[row][col]=='.'){
+            for(char i='1';i<='9';i++){
+               if(isSafe(board,row,col,i)){
+                   board[row][col]=i;
+                   if(solve(board,row,col+1)==true) return true;
+                   else  board[row][col]='.';
+               }
+            }
+        }else return solve(board,row,col+1);
+        return false;
+    }
+    public  boolean isSafe(char[][] board,int row,int col,char value){
+        for(int i=0;i<9;i++){
+            if(board[i][col]==value) return false;
+            if(board[row][i]==value) return false;
+        }
+        int sqrt=(int)Math.sqrt(board.length);
+        int rowStart=row-row%sqrt;
+        int colStart=col-col%sqrt;
+        for(int i=rowStart;i<rowStart+sqrt;i++){
+            for(int j=colStart;j<colStart+sqrt;j++){
+                if(board[i][j]==value ) return false;
+            }
+        }
+        return true;
+    }
+}
