@@ -1,0 +1,34 @@
+class Solution {
+    public List<Integer> diffWaysToCompute(String expression) {
+        return helper(0,expression.length()-1,expression);
+    }
+    public List<Integer> helper(int start,int end,String expression){
+        List<Integer> curr=new ArrayList<>();
+        if(start>end){
+            return curr; 
+        }
+        boolean operator=false;
+        for(int i=start;i<end;i++){
+            if(!Character.isDigit(expression.charAt(i))){
+                operator=true;
+                List<Integer> left=helper(start,i-1,expression);
+                List<Integer> right=helper(i+1,end,expression);
+                for(int leftnum:left){
+                    for(int rightnum:right){
+                        curr.add(calculate(leftnum,rightnum,expression.charAt(i)));
+                    }
+                }
+            }
+        }
+        if(!operator) {
+            curr.add(Integer.parseInt(expression.substring(start,end+1)));
+        }
+        return curr;
+    }
+    public int calculate(int a,int b,char c){
+        if(c=='+') return a+b;
+        else if(c=='-') return a-b;
+        else if(c=='*') return a*b;
+        else return a/b;
+    }
+}
