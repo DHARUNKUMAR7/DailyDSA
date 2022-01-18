@@ -1,0 +1,21 @@
+class Solution {
+    public boolean PredictTheWinner(int[] nums) {
+        return fun(nums,0,nums.length-1,0,true)>=0;
+    }
+    public int fun(int[] nums,int start,int end,int p1,boolean player1){
+        //base condition 
+        if(start>end){
+            return p1;
+        }
+        if(player1){
+            int top=fun(nums,start+1,end,p1+nums[start],false);
+            int bottom=fun(nums,start,end-1,p1+nums[end],false);
+            return Math.max(top,bottom);
+        }
+        else{
+            int top=fun(nums,start+1,end,p1-nums[start],true);
+            int bottom=fun(nums,start,end-1,p1-nums[end],true);
+            return Math.min(top,bottom);
+        }
+    }
+}
