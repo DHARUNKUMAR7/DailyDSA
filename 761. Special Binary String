@@ -1,0 +1,19 @@
+class Solution {
+    public String makeLargestSpecial(String s) {
+        return visit(0,s);
+    }
+    public String visit(int index,String s){
+         if(s.charAt(index)=='0') return "";
+        PriorityQueue<String> ans=new PriorityQueue<>();
+        while(index<s.length()&&s.charAt(index)=='1'){
+            String token="1"+visit(index+1,s)+"0";
+            index+=token.length();
+            ans.offer(token);
+        }
+        String res="";
+        while(!ans.isEmpty()){
+            res=ans.poll()+res;
+        }
+        return res;
+    }
+}
