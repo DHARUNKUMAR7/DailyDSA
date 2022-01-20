@@ -1,0 +1,62 @@
+class Solution {
+    public boolean parseBoolExpr(String expression) {
+        Stack<Character> stack=new Stack<>();
+        for(char c:expression.toCharArray()){
+            switch(c) {
+                case 't':
+                case 'f':
+                case '!':
+                case '&':
+                case '|':
+                    stack.push(c);
+                    break;
+                case '(':
+                case ',':
+                    break;
+                case ')':
+                    evaluvate(stack);
+                    break;
+           }
+        }
+         while(stack.size()!=1){
+                evaluvate(stack);
+        }
+         return  stack.peek()=='t'?true:false;
+    }
+    public void evaluvate( Stack<Character> stack){
+        List<Boolean> ans=new ArrayList<>();
+        char ch;
+        do{
+            ch=stack.pop();
+            switch(ch) {
+                case 't':
+                    ans.add(Boolean.TRUE);
+                    break;
+                case 'f' :
+                    ans.add(Boolean.FALSE);
+                    break;
+                case '|' :
+                    boolean a=false;
+                    for (Boolean b:ans){
+                        a|=b;
+                    }
+                    stack.push(a==Boolean.TRUE?'t':'f');
+                    break;
+                case '&' :
+                    boolean c=true;
+                    for (boolean b:ans){
+                        c&=b;
+                    }
+                    stack.push(c==Boolean.TRUE?'t':'f');
+                    break;
+                case '!' :
+                    boolean d=ans.get(0);
+                    stack.push(d==Boolean.TRUE?'f':'t');
+                    break;
+            }
+            
+        }while(ch!='!'&&ch!='|'&&ch!='&');
+        
+    }
+        
+}
