@@ -1,0 +1,28 @@
+class Solution {
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        List<String> ans=new ArrayList<String>();
+        List<String> word=new ArrayList<String>();
+        fun(s,0,wordDict,word,ans);
+        return ans;
+
+    }
+    public void fun(String s,int ind,List<String> dict,List<String> word,List<String>ans){
+        if(ind==s.length()){
+            String sentence="";
+            for(String w:word){
+                sentence=sentence+" "+w;
+            }
+            sentence=sentence.substring(1);
+            ans.add(sentence);
+            return ;
+        }
+        for(int i=ind;i<s.length();i++){
+            String a=s.substring(ind,i+1);
+            if(dict.contains(a)){
+                word.add(a);
+                fun(s,i+1,dict,word,ans);
+                word.remove(word.size()-1);
+            }
+        }
+    }
+}
