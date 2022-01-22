@@ -1,0 +1,17 @@
+class Solution {
+    public int singleNumber(int[] nums) {
+        int res=0;
+        for(int i=0;i<32;i++){
+            int count=fun(i,nums);
+            if(count%3!=0) res=res+(1<<i);
+        }
+        return res;
+    }
+    public int fun(int pos,int[] nums){
+        int count=0;
+        for(int i=0;i<nums.length;i++){
+            if((nums[i] & 1<<pos) != 0) count++;
+        }
+        return count;
+    }
+}
