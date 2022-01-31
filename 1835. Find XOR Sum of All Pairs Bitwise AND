@@ -1,0 +1,8 @@
+class Solution {
+    public int getXORSum(int[] arr1, int[] arr2) {
+       int Xarr1=0,Xarr2=0;
+        for(int a:arr1) Xarr1^=a;
+        for(int b:arr2) Xarr2^=b;
+        return Xarr2&Xarr1;
+    }
+}
