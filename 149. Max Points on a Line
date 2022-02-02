@@ -1,0 +1,36 @@
+class Solution {
+    public int maxPoints(int[][] points) {
+        if(points.length==0) return 0;
+        if(points.length<=2) return points.length;
+        int res=0;
+        for(int i=0;i<points.length;i++){
+            Map<Double,Integer> ans=new HashMap<>();
+            int count=1;
+            int same=1;
+            for(int j=0;j<points.length;j++){
+                if(i!=j){
+                    int x1=points[i][0];
+                    int y1=points[i][1];
+                    
+                    int x2=points[j][0];
+                    int y2=points[j][1];
+                    
+                    if(x1==x2&&y1==y2){
+                        same++;
+                        continue;
+                    } //same++;
+                    if(x1==x2){
+                        count++;
+                        continue;
+                    } //count++;
+                    
+                    Double k=(double)(x2-x1)/(double)(y2-y1);
+                    ans.put(k,ans.getOrDefault(k,0)+1);
+                    res=Math.max(res,ans.get(k)+same);
+                }
+            }
+            res=Math.max(res,count);
+        }
+        return res;
+    }
+}
