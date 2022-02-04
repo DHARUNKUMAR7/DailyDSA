@@ -1,0 +1,19 @@
+class Solution {
+    public int countKDifference(int[] nums, int k) {
+        int count=0;
+        int x=0;
+        int y=0;
+        while(x!=nums.length-1){
+            if(Math.abs(nums[x]-nums[y])==k) count++;
+            if(y==nums.length-1){
+                x++;
+                y=x+1;
+                System.out.println(y);
+            }
+            else{
+                y++;
+            }
+        }
+        return count;
+    }
+}
