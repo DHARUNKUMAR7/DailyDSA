@@ -1,0 +1,78 @@
+class Solution {
+    public ListNode mid(ListNode head){
+        int size=0;
+        ListNode temp = head;
+        while(temp != null){
+            temp=temp.next;
+            size++;
+        }
+        // System.out.println(size);
+        // return head;
+        int n=size%2==0?size:size+1;
+        temp = head;
+        for(int i=0;temp != null && i<n/2-1;i++){
+            temp=temp.next;
+        }
+       // System.out.println(temp.val);
+        return temp;
+
+    }
+    public void rev(ListNode mid){
+        ListNode temp = mid;
+        ListNode tail = mid.next;
+        
+        ListNode prev = mid;
+        ListNode curr = mid.next;
+        if(curr.next == null){
+            return ;
+        }
+        ListNode next = curr.next;
+        while(curr != null){
+            System.out.println("op");
+            curr.next=prev;
+            prev = curr;
+            curr = next;
+            if(next != null){
+                next = next.next;
+                System.out.println("po");
+            }
+        }
+        temp.next = prev;
+        tail.next = null;
+    }
+    public void reorderList(ListNode head) {
+        if(head == null || head .next == null) return ;
+        ListNode mid = mid(head);
+        rev(mid);
+        // ListNode temp = head;
+        // while(temp != null){
+        //     System.out.println(temp.val);
+        //     temp = temp.next;
+        // }
+        ListNode h1 = head;
+        ListNode h2 = mid.next;
+        ListNode check = mid.next;
+        while(h1 != null && h2 != null){
+            ListNode temp = h1.next;
+            h1.next = h2;
+            h1 = temp;
+            
+            if(h1 == check){
+                return ;
+              //  System.out.println("hhi");
+            }
+            
+            temp = h2.next;
+            h2.next = h1;
+            h2=temp;
+        }
+        if(h1 != null){
+            h1.next = null;
+        }
+
+        
+        
+    }
+}
+ 
+  
