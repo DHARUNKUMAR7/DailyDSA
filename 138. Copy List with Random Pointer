@@ -1,0 +1,22 @@
+class Solution {
+    public Node copyRandomList(Node head) {
+       Map<Node , Node> map = new HashMap<Node ,Node>();
+        Node temp = head;
+        while(temp != null){
+            map.put(temp,new Node(temp.val));
+            temp = temp.next;
+        }
+        temp = head;
+        Node res = new Node(0);
+        Node ans = res;
+        while (temp != null){
+            res.next = map.get(temp);
+            res.next.next = map.get(temp.next);
+            res.next.random = map.get(temp.random);
+            temp = temp.next;
+            res = res.next;
+        }
+        return ans.next;
+        
+    }
+}
