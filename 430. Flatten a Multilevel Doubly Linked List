@@ -1,0 +1,41 @@
+class Solution {
+    public Node helper(Node head){
+       Node curr = head;
+        Node tail = curr;
+        while(curr != null){
+            Node next = curr.next;
+            if(curr.child != null){
+               Node child = curr.child;
+               
+               curr.next = child;
+                child.prev = curr;
+                
+                tail = helper(child);
+                tail.next = next;
+                if(next != null){
+                    next.prev = tail;
+                }
+                
+                curr.child = null;
+                
+               //curr = tail;
+                
+            }
+            else {
+                curr = curr.next;
+            }
+            if(curr != null){
+                tail = curr;
+            }
+        }
+        return tail;
+    }
+    public Node flatten(Node head) {
+        if(head == null)  {
+            return head;
+        }
+        helper(head);
+        return head;
+        
+    }
+}
