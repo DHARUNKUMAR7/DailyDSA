@@ -1,0 +1,36 @@
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode prev = head , curr = prev.next;
+        ListNode temp;
+        while(curr != null){
+            if(prev.val > curr.val){
+                if(curr.val <= head.val ){
+                    temp = curr.next;
+                    curr.next = head;
+                    head = curr;
+                    prev.next = temp;
+                    curr = temp;
+                }
+                else {
+                    ListNode ptr = head ;
+                    while(ptr.next != null && ptr.next.val < curr.val){
+                        ptr = ptr.next;
+                    }
+                    temp = curr.next;
+                    curr.next = ptr.next;
+                    prev.next = temp;
+                    ptr.next = curr;
+                    curr = temp;
+                }
+            }
+            else{
+                prev = prev.next;
+                curr = curr.next;
+            }
+        }
+        return head;
+    }
+}
