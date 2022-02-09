@@ -1,0 +1,30 @@
+class Solution {
+    public int[] nextLargerNodes(ListNode head) {
+        
+        ListNode temp = head;
+        int size = 0;
+        while(temp != null){
+            temp = temp.next;
+            size++;
+        }
+        System.out.println(size);
+        int[] arr = new int[size];
+        ListNode curr = head;
+        int i=0;
+        while(curr != null){
+            ListNode check = curr.next;
+            while(check != null && check.val <= curr.val ){
+                check = check.next;
+            }
+            if(check == null){
+                arr[i++]=0;
+            }
+            else{
+                arr[i++] = check.val;
+            }
+            curr = curr.next;
+            
+        }
+        return arr;
+    }
+}
