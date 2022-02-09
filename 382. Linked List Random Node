@@ -1,0 +1,25 @@
+class Solution {
+    ListNode head = null;
+    ListNode next = null;
+    public Solution(ListNode head) {
+        this.head = head;
+    }
+    
+    public int getRandom() {
+        ListNode temp = head;
+        int size = 0;
+        while (temp != null){
+            size++;
+            temp = temp.next;
+        }
+        int c = (int)(Math.random()*size);
+        System.out.println(c);
+        temp = head;
+        while(temp.next != null && c>0){
+            temp = temp.next;
+            c--;
+        }
+        return temp.val;
+        
+    }
+}
