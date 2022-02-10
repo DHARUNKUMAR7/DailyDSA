@@ -1,0 +1,68 @@
+class Solution {
+    public ListNode[] splitListToParts(ListNode head, int k) {
+        ListNode temp = head;
+        int size = 0;
+        while(temp != null){
+            size++;
+            temp = temp.next;
+        }
+        ListNode[] arr = new ListNode[k];
+        if(size < k){
+            int i = 0;
+            temp = head;
+            while(temp != null){
+                arr[i]=temp;
+                temp = temp.next;
+                arr[i++].next = null;
+            }
+            return arr;
+        }
+        else{
+            int length = size / k;
+            int rem = size % k;
+            int i = 0;
+            if(rem == 0){
+                temp = head;
+                while(temp != null){
+                    int check = 0;
+                    arr[i] = temp;
+                    while (check < length){
+                        check++;
+                        temp = temp.next;
+                    }
+                    ListNode make = arr[i];
+                    int a = 0;
+                    System.out.println(make.val);
+                    while(make.next != null && a < length - 1 ){
+                        make = make.next;
+                        a++;
+                    }
+                    //System.out.println(temp.val);
+                    make.next = null;
+                    i++;
+                    
+                }
+            }
+            else{
+                 length = size / k;
+                 rem = size % k;
+                 i = 0;
+                temp = head;
+                ListNode prev = null;
+                while(temp != null){
+                    
+                    arr[i++]= temp;
+                    for(int b = 0;b < length + (rem > 0 ? 1 : 0);b++){
+                        prev = temp;
+                        temp = temp.next;
+                    }
+                    rem--;
+                    if(prev.next != null){
+                        prev.next = null;
+                    }
+                }
+            }
+        }
+        return arr;
+    }
+}
