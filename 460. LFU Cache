@@ -1,0 +1,134 @@
+class LFUCache {
+    class Node{
+        int key;
+        int val;
+        int freq;
+        Node next;
+        Node prev;
+        public Node(int key, int val){
+            this.key = key;
+            this.val = val;
+            this.freq = 0;
+        }
+    }
+    class Dll{
+        Node head;
+        Node tail;
+        int size;
+        public Dll(){
+            // head = null;
+            // tail = null;
+             this.size = 0;
+        }
+        public void addtohead(Node n){
+            n.prev = null;
+            n.next = null;
+            if(head == null){
+                head = tail = n;
+            }
+            else{
+                n.next = head;
+                head.prev = n;
+                head = n;
+                //size++;
+            }
+            size++;
+        }
+        public void remove(Node n){
+            if(n == head){
+                head = head.next;
+                if(head != null){
+                    head.prev = null;
+                }
+            }
+            else if(n == tail){
+                tail = tail.prev;
+                if(tail != null){
+                    tail.next = null;
+                }
+            }
+            else{
+                 n.next.prev = n.prev;
+                 n.prev.next = n.next;
+            }
+            size--;
+        }
+        public Node lastelement(){
+            return tail;
+        }
+        
+    }
+    Map<Integer, Node> cache;
+    Map<Integer, Dll> freqmap;
+    int maxcapacity;
+    int minfreq;
+    Dll dll;
+
+    public LFUCache(int capacity) {
+         cache = new HashMap<>();
+         freqmap = new HashMap<>();
+         maxcapacity = capacity;
+         minfreq = 1;
+         dll = new Dll();
+    }
+    
+    public int get(int key) {
+        if(cache.containsKey(key)){
+            Node n = cache.get(key);
+            incrementfreq(n);
+            return n.val;
+        }
+        else {
+            return -1;
+        }
+    }
+    
+    public void put(int key, int value) {
+        if(maxcapacity <= 0) return;
+        if(cache.containsKey(key)){
+            Node n = cache.get(key);
+            incrementfreq(n);
+            n.val = value;
+            //cache.put(key,n);
+        }
+        else{
+            Node node = new Node(key, value);
+            if(cache.size() >= maxcapacity){
+                Node prev = freqmap.get(minfreq).lastelement();
+                freqmap.get(minfreq).remove(prev);
+                cache.remove(prev.key);
+            }
+            minfreq = 1;
+            incrementfreq(node);
+            cache.put(key,node);
+            
+        }
+        
+    }
+    public void incrementfreq(Node n){
+        int oldfreq = n.freq;
+        if(freqmap.containsKey(oldfreq)){
+            freqmap.get(oldfreq).remove(n);
+            
+            if(oldfreq == minfreq && freqmap.get(oldfreq).size == 0){
+                minfreq = minfreq + 1;
+            }
+            
+        }
+        int newfreq = oldfreq + 1;
+        n.freq = newfreq;
+        if(!freqmap.containsKey(newfreq)){
+            freqmap.put(newfreq , new Dll());
+        }
+        freqmap.get(newfreq).addtohead(n);
+        
+        
+    }
+}
+
+/**
+ * Your LFUCache object will be instantiated and called as such:
+ * LFUCache obj = new LFUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
