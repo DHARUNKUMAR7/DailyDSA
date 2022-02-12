@@ -1,0 +1,108 @@
+class AllOne {
+    Map<String, Node> map;
+    Node head;
+    Node tail;
+    class Node{
+        Set<String> set = new HashSet<>();
+        int val;
+        Node next;
+        Node prev;
+        public Node(){}
+        
+    }
+
+    public AllOne() {
+        map = new HashMap<>();
+        head = new Node();
+        tail = new Node();
+        head.val = 1;
+        head.next = tail;
+        tail.prev = head;
+    }
+    
+    public void inc(String key) {
+        if(!map.containsKey(key)){
+            head.set.add(key);
+            map.put(key, head);
+        }
+        else{
+            Node node = map.get(key);
+            int currval = node.val + 1;
+            node.set.remove(key);
+            if(node.set.size() == 0 && node != head){
+                node.next.prev = node.prev;
+                node.prev.next = node.next;
+                node = node.prev;
+            }
+            if(node.next != null && currval == node.next.val){
+                node.next.set.add(key);
+                map.put(key,node.next);
+            }
+            else{
+                Node curr = new Node();
+                curr.val = currval;
+                curr.set.add(key);
+                insert(node, curr);
+                map.put(key, curr);
+            }
+        }
+    }
+    public void insert(Node node, Node curr){
+        curr.next = node.next;
+        curr.prev = node;
+        curr.prev.next = curr;
+        curr.next.prev = curr;
+    }
+    
+    public void dec(String key) {
+        if(!map.containsKey(key)){
+            return ;
+        }
+        if(map.get(key) == head){
+            head.set.remove(key);
+            map.remove(key);
+        }
+        else{
+            Node node = map.get(key);
+            int currval = node.val - 1;
+            node.set.remove(key);
+            if(node.set.size() == 0){
+                node.prev.next = node.next;
+                node.next.prev = node.prev;
+                node = node.next;
+            }
+            if(node.prev != null && node.prev.val == currval){
+                node.prev.set.add(key);
+                map.put(key, node.prev);
+            }
+            else{
+                Node curr = new Node();
+                curr.val = currval;
+                curr.set.add(key);
+                insert(node.prev, curr);
+                map.put(key,curr);
+            }
+        }
+    }
+    
+    public String getMaxKey() {
+        if(tail.prev.set.size() == 0) return "";
+        return tail.prev.set.iterator().next();
+    }
+    
+    public String getMinKey() {
+        if(head.set.size() != 0) return head.set.iterator().next();
+        if(head.next.set.size() == 0) return "";
+        return  head.next.set.iterator().next();
+        
+    }
+}
+
+/**
+ * Your AllOne object will be instantiated and called as such:
+ * AllOne obj = new AllOne();
+ * obj.inc(key);
+ * obj.dec(key);
+ * String param_3 = obj.getMaxKey();
+ * String param_4 = obj.getMinKey();
+ */
