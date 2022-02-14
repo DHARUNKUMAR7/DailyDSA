@@ -1,0 +1,16 @@
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] arr = new int[26];
+        for(char c : tasks){
+            arr[c-'A']++;
+        }
+       Arrays.sort(arr);
+        int max = arr[25] - 1;
+        int idle_slots = max * n;
+        for(int i = 0;i < 25;i++){
+            idle_slots -= Math.min(max , arr[i]);
+        }
+        return idle_slots > 0 ? idle_slots + tasks.length : tasks.length;
+       // return 0;
+    }
+}
