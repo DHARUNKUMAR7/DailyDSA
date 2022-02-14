@@ -1,0 +1,147 @@
+class FrontMiddleBackQueue {
+    Node start;
+    Node end;
+    Node middle;
+    int count;
+    class Node {
+        int val;
+        Node next;
+        Node prev;
+        public Node(int val){
+            this.val = val;
+            this.next = null;
+            this.prev = null;
+        }
+    }
+    public FrontMiddleBackQueue() {
+        start = new Node(0);
+        end = new Node(0);
+        middle = new Node(0);
+        this.count = 0;
+        start.next = end;
+        end.prev = start;
+    }
+    
+    public void pushFront(int val) {
+        Node node = new Node(val);
+        node.next = start.next;
+        node.prev = start;
+        start.next.prev = node;
+        start.next = node;
+        count++;
+        
+        if(count == 1){
+            middle = node;
+        }
+        else if(count % 2 == 0){
+            middle = middle.prev;
+        }
+    }
+    
+    public void pushMiddle(int val) {
+        Node node = new Node(val);
+        if(count == 0){
+             middle = node;
+             node.next = end;
+            node.prev = start;
+            end.prev = node;
+            start.next = node;
+        }
+        else if(count % 2 != 0){
+            node.next = middle;
+            node.prev = middle.prev;
+            middle.prev.next = node;
+            middle.prev = node;
+            middle = middle.prev;
+           // System.out.println("hi");
+        }
+        else{
+            node.next = middle.next;
+            node.prev = middle;
+            middle.next.prev = node;
+            middle.next = node;
+            middle = middle.next;
+        }
+        count++;
+       // display(start.next);
+    }
+    
+    public void pushBack(int val) {
+        Node node = new Node(val);
+        
+        node.next = end;
+        node.prev = end.prev;
+        end.prev.next = node;
+        end.prev = node;
+        count++;
+        if(count == 1){
+            middle = node;
+        }
+        else if(count % 2 != 0){
+            middle = middle.next;
+        }
+        //System.out.println("Hi");
+        //display(start.next);
+    }
+    
+    public int popFront() {
+        if(count == 0) return -1;
+        Node node = start.next;
+        remove(node);
+        count--;
+        if(count % 2 != 0){
+            middle = middle.next;
+        }
+        return node.val;
+        
+    }
+    
+    public int popMiddle() {
+        if(count == 0) return -1;
+        Node node = middle;
+        count--;
+        if(count % 2 == 0){
+            middle = middle.prev;
+        }
+        else {
+            middle = middle.next;
+        }
+        remove(node);
+        return node.val;
+        
+    }
+    
+    public int popBack() {
+        
+        if(count == 0) return -1;
+        Node node = end.prev;
+        count--;
+        if(count % 2 == 0){
+            middle = middle.prev;
+        }
+        remove(node);
+        return node.val;
+    }
+    public void remove(Node node){
+        //node.prev.next = node.next;
+        node.next.prev = node.prev;
+         node.prev.next = node.next;
+    }
+    public void display(Node node){
+        while(node != end){
+            System.out.println(node.val);
+            node = node.next;
+        }
+    }
+}
+
+/**
+ * Your FrontMiddleBackQueue object will be instantiated and called as such:
+ * FrontMiddleBackQueue obj = new FrontMiddleBackQueue();
+ * obj.pushFront(val);
+ * obj.pushMiddle(val);
+ * obj.pushBack(val);
+ * int param_4 = obj.popFront();
+ * int param_5 = obj.popMiddle();
+ * int param_6 = obj.popBack();
+ */
