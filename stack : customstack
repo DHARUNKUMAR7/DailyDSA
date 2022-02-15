@@ -1,0 +1,64 @@
+public class cs  {
+    int[] arr;
+    int ptr = 0;
+    private int size;
+    private static final int capacity = 5;
+    public cs(){
+        this.arr = new int[capacity];
+        this.size = 0;
+    }
+    public boolean push(int val){
+        if(isfull()){
+            //return false;
+            int[] temp = new int[arr.length * 2];
+            for (int i = 0; i < arr.length; i++){
+                temp[i] = arr[i];
+            }
+            arr = temp;
+
+        }
+        arr[ptr++] = val;
+        size++;
+        return true;
+    }
+    public boolean isfull(){
+        if(ptr >= arr.length){
+            return true;
+        }
+        return false;
+    }
+    public int pop(){
+        if(isempty()){
+            return -1;
+        }
+        size--;
+        return arr[ptr-- - 1];
+
+    }
+    public boolean isempty(){
+        if(ptr == 0){
+            return true;
+        }
+        return false;
+    }
+    public int peek() throws Exception{
+        if(!isempty()){
+            return arr[ptr - 1];
+        }
+        else{
+            throw new Exception("Stack is Empty");
+        }
+    }
+    public void display(){
+        int i = ptr - 1;
+        while(i >= 0){
+            System.out.println(arr[i]);
+            i--;
+        }
+    }
+    public int size(){ // getter method because size is private using another method that is public to get the size and return it;
+       return size;
+
+    }
+}
+
