@@ -1,0 +1,39 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        if(nums.length == 1){
+            return;
+        }
+        int left = nums.length - 2;
+        int right = nums.length -1;
+        while(left > -1 && nums[left] >= nums[left + 1]){
+            left--;
+        }
+        
+        if(left > -1){
+            while(right > -1 && nums[right] <= nums[left]){
+               right--;
+            }
+            swap(nums, left, right);
+            System.out.println(left);
+            System.out.println(right);
+            System.out.println(Arrays.toString(nums));
+            //rev(nums, left + 1, nums.length - 1);
+        }
+        // else{
+        //     Arrays.sort(nums);
+        // }
+        rev(nums, left + 1, nums.length - 1);
+    }
+    public void swap(int[] arr,int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    public void rev(int[] arr,int i,int j){
+        while(i < j){
+            swap(arr,i ,j );
+            i++;
+            j--;
+        }
+    }
+}
