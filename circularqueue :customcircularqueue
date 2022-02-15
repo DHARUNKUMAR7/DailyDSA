@@ -1,0 +1,85 @@
+public class CCC {
+    int[] arr ;
+    int start = 0;
+    int end = -1;
+    int size = 0;
+    static final int capacity = 10;
+    public CCC(){
+       arr = new int[10];
+    }
+    public CCC(int val){
+        arr = new int[val];
+    }
+    public boolean addAtRear(int val){
+        if(this.isFull()){
+           int[] temp = new int[arr.length * 2];
+           for(int i = 0 ; i < arr.length ; i++) {
+               temp[i] = arr[(start + i) % arr.length];
+           }
+           //arr = temp;
+           start = 0;
+           end = arr.length - 1;
+            arr = temp;
+            arr[++end] = val;
+            size++;
+            return true;
+        }
+        ++end;
+        end = end % arr.length;
+        arr[end] = val;
+        size++;
+        return true;
+    }
+    public int front(){
+        if(this.isEmpty()){
+            return Integer.MIN_VALUE;
+        }
+        start = start % arr.length;
+        return arr[start];
+    }
+    public int rear(){
+        if(this.isEmpty()){
+            return Integer.MIN_VALUE;
+        }
+        end = end % arr.length;
+        return arr[end];
+    }
+    public boolean isFull(){
+        if(size == arr.length){
+            return true;
+        }
+        return false;
+    }
+    public boolean isEmpty(){
+        if(size == 0){
+            return true;
+        }
+        return false;
+    }
+    public boolean deleteAtFront(){
+        if(this.isEmpty()){
+            return false;
+        }
+        start = start % arr.length;
+        start = start + 1;
+        size--;
+        return true;
+    }
+    public boolean deleteAtRear(){
+        if(this.isEmpty()){
+            return false;
+        }
+        //end = end % arr.length;
+        end = end - 1;
+        size --;
+        return true;
+    }
+    public void display(){
+
+        for (int i = 0 ;i < size && i < arr.length ; i++){
+            System.out.print(arr[((start + i) % arr.length)] + " -> ");
+        }
+        System.out.println("END");
+    }
+
+}
