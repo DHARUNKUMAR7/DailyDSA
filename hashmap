@@ -1,0 +1,82 @@
+public class hashmap {
+    Node[] arr ;
+    int size = 10;
+    public hashmap(){
+        arr = new Node[size];
+    }
+    public void put(int key, int val){
+        int hashcode = gethashcode(key);
+        Node curr = arr[hashcode];
+        if(curr == null){
+            curr = new Node(key, val);
+            arr[hashcode] = curr;
+            return ;
+        }
+        Node prev = null;// this is a temp for  iterating purpose;
+        while(curr != null){
+            if(curr.key == key){
+                curr.val = val;
+                return;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+        prev.next = new Node(key, val);
+        return ;
+    }
+    public int get(int key){
+        int hashcode = key % size;
+        Node curr = arr[hashcode];
+        if(curr == null){
+            return -1;
+        }
+        if(curr != null && curr.key == key){
+            return curr.val;
+        }
+        Node prev = null;
+        while(curr != null){
+            if(curr.key == key){
+                return curr.val;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+        return -1;
+
+    }
+    public void remove(int key){
+        int hashcode = key % size;
+        Node  curr = arr[hashcode];
+        if(curr == null) return;
+        if(curr.key == key){
+            arr[hashcode] = arr[hashcode].next;
+            return;
+        }
+        Node prev = null;
+        //Node next = curr.next;
+        while(curr != null){
+            Node next = curr.next;
+            if(prev != null && curr.key == key){
+                prev.next = curr.next;
+                curr.next = null;
+                return;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+    }
+    public int gethashcode(int key){
+        int temp = key % size;
+        return temp;
+    }
+    class Node{
+        int key;
+        int val;
+        Node next;
+        public Node(int key, int val){
+            this.key = key;
+            this.val = val;
+            this.next = null;
+        }
+    }
+}
