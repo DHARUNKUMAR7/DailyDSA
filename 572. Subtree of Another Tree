@@ -1,0 +1,23 @@
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subroot) {
+        if(root == null){
+            return false;
+        }
+        if(checker(root, subroot)){
+            return true;
+        }
+        return isSubtree(root.left, subroot) || isSubtree(root.right, subroot);
+    }
+    public boolean checker(TreeNode r, TreeNode s){
+        if(r == null && s == null){
+            return true;
+        }
+        if(r == null || s == null){
+            return false;
+        }
+        if(r.val != s.val){
+            return false;
+        }
+        return checker(r.left, s.left) && checker(r.right, s.right);
+    }
+}
