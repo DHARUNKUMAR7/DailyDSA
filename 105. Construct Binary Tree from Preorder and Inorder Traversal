@@ -1,0 +1,19 @@
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return helper(0 , 0 , inorder.length - 1 , preorder , inorder);
+    }
+    public TreeNode helper(int prestart, int instart , int inend , int[] pre , int[] in){
+        if(prestart > pre.length - 1 || instart > inend)return null;
+        TreeNode root = new TreeNode(pre[prestart]);
+        int index = 0;
+        for(int i = 0; i < in.length; i++){
+            if(root.val == in[i]){
+                index = i;
+                break;
+            }
+        }
+        root.left = helper(prestart + 1, instart , index - 1 , pre , in);
+        root.right = helper(prestart +index - instart + 1,  index + 1 , inend , pre , in);
+        return root;
+    }
+}
