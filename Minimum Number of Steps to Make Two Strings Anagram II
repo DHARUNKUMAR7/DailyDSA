@@ -1,0 +1,25 @@
+class Solution {
+    public int minSteps(String s, String t) {
+        int[] ints = new int[26];
+         int[] intt = new int[26];
+        System.out.println(s.charAt(0)-'a' + 1);
+        for(char c : s.toCharArray()){
+            ints[c-'a']++;
+        }
+        for(char c : t.toCharArray()){
+            intt[c-'a']++;
+        }
+        // System.out.println(Arrays.toString(ints));
+        // System.out.println(Arrays.toString(intt));
+        // Arrays.toString(ints);
+        // Arrays.toString(intt);
+        int count = 0;
+        for(int i = 0 ;  i < ints.length ; i++){
+            if(ints[i] != intt[i]){
+                int temp = Math.abs(ints[i] - intt[i]);
+                count += temp;
+            }
+        }
+        return Math.abs(count) ;
+    }
+}
