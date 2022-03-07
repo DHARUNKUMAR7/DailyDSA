@@ -1,0 +1,23 @@
+class Solution {
+    public int countConsistentStrings(String allowed, String[] words) {
+        HashMap<Character , Integer> ans = new HashMap<>();
+        for(char ch : allowed.toCharArray()){
+            ans.put(ch , 0);
+        }
+        int res = 0;
+        for(int i = 0 ; i < words.length ; i++){
+            boolean check = true;
+            for(int j = 0 ; j < words[i].length() ; j++){
+                
+                if(!ans.containsKey(words[i].charAt(j))){
+                    check = false;
+                    break;
+                }
+            }
+            if(check){
+                res++;
+            }
+        }
+        return res;
+    }
+}
