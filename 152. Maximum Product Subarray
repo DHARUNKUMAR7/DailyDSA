@@ -1,0 +1,24 @@
+class Solution {
+    public int maxProduct(int[] nums) {
+        int result = nums[0];
+        int p = 1 , n = 1;
+        for(int i = 0 ; i < nums.length ; i++){
+            if(nums[i] > 0){
+                p = Math.max(nums[i] , p * nums[i] ) ;
+                n *= nums[i];
+            }
+            else{
+                int temp = n;
+                n = Math.min(nums[i], p * nums[i]) ;
+                p = temp * nums[i];
+            }
+            System.out.print(p + "     ");
+                        System.out.print(n);
+            System.out.println();
+
+            result = Math.max(p , result);
+        }
+        return result;
+        
+    }
+}
