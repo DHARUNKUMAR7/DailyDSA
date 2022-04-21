@@ -1,0 +1,10 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+        int check = 0 ;
+        for(int i = 0 ; i < nums.length ; i++){
+            if(i > check) return false;
+           check = Math.max(check , i + nums[i]);//i + nums[i] is curr pos + how long can jump ;
+        }
+        return true;
+    }
+}
