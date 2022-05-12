@@ -1,0 +1,25 @@
+class Solution {
+    public int[][] spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
+        int[][] ans = new int[rows * cols][2];
+        int i = 0 ;
+        ans[i++] = new int[]{rStart , cStart};
+        int d = 0;
+        int[] dir = new int[]{0 , 1 , 0 , -1 , 0};
+        int len = 0;
+        while( i < rows * cols){
+            if( d==0 || d == 2){
+                len++;
+            }
+            for(int j = 0; j < len ; j++){
+                rStart += dir[d];
+                cStart += dir[d + 1];
+                System.out.println("i is " + i);
+                if(rStart >= 0 && cStart >= 0 && rStart < rows && cStart < cols){
+                    ans[i++] = new int[]{rStart , cStart};
+                }
+            }
+            d = (d + 1) % 4;
+        }
+        return ans;
+    }
+}
