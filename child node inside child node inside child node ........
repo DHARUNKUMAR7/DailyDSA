@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class PrintChildCound {
+
+  int countChildLevel(Node root, int level, int currentLevel, int total) {
+    if(root == null) {
+      return 0;
+    }
+    if(level == currentLevel) {
+      System.out.println(root.val);
+      total++;
+    }
+    for(Node node : root.list) {
+      total = countChildLevel(node, level, currentLevel+1, total);
+    }
+    return total;
+  }
+  public static void main(String... args) {
+    Node shyam = new Node("Shyam");
+    Node akhil = new Node("Akhil");
+    shyam.hasChild(akhil);
+    Node ram = new Node("Ram");
+    shyam.hasChild(ram);
+
+    ram.hasChild(new Node("Nikil"));
+    ram.hasChild(new Node("Subhash"));
+
+    akhil.hasChild(new Node("Karthik"));
+
+    System.out.println(new PrintChildCound().countChildLevel(shyam, 2, 0, 0));
+  }
+}
+class Node  {
+  Node(String val) {
+    this.val = val;
+  }
+  void hasChild(Node node) {
+    list.add(node);
+  }
+  String val;
+  List<Node> list = new ArrayList();
+}
